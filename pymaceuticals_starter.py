@@ -4,12 +4,15 @@
 # # Pymaceuticals Inc.
 # ---
 # 
-# ### Analysis
+# ### Observations
 # 
-# - Add your analysis here.
+# 1. In this study, experiments are conducted on mice. The ratio between male (51%) and female (49%) is almost the same, as you can see in the pie chart.
+# 2. As can be seen in the line graph "Capomulin treatment of mouse l509", it can be seen that the tumor volume and time zone increase until about 20 days. After about 20 days, the tumor volume decreases rapidly.
+# 3. As can be seen from the resulting scatter plot, it can be seen that as the weight of the mouse increases, the volume of the tumor also increases.
+# 
 #  
 
-# In[99]:
+# In[1]:
 
 
 # Dependencies and Setup
@@ -27,13 +30,13 @@ study_results = pd.read_csv(study_results_path)
 study_results
 
 
-# In[100]:
+# In[2]:
 
 
 mouse_metadata
 
 
-# In[101]:
+# In[3]:
 
 
 # Combine the data into a single DataFrame
@@ -43,14 +46,14 @@ science_study_data_complete_df = pd.merge(study_results, mouse_metadata, how = '
 science_study_data_complete_df
 
 
-# In[102]:
+# In[4]:
 
 
 # Checking the number of mice.
 len(science_study_data_complete_df["Mouse ID"].unique())
 
 
-# In[103]:
+# In[5]:
 
 
 # Our data should be uniquely identified by Mouse ID and Timepoint
@@ -59,7 +62,7 @@ duplicated_mouse_ids = science_study_data_complete_df[science_study_data_complet
 duplicated_mouse_ids
 
 
-# In[104]:
+# In[6]:
 
 
 # Optional: Get all the data for the duplicate mouse ID.
@@ -67,7 +70,7 @@ duplicated_mouse_dataset = science_study_data_complete_df[science_study_data_com
 duplicated_mouse_dataset
 
 
-# In[105]:
+# In[7]:
 
 
 # Create a clean DataFrame by dropping the duplicate mouse by its ID.
@@ -75,7 +78,7 @@ clean_study_data_complete = science_study_data_complete_df[science_study_data_co
 clean_study_data_complete
 
 
-# In[106]:
+# In[8]:
 
 
 # Checking the number of mice in the clean DataFrame.
@@ -84,7 +87,7 @@ len(clean_study_data_complete["Mouse ID"].unique())
 
 # ## Summary Statistics
 
-# In[107]:
+# In[9]:
 
 
 # Generate a summary statistics table of mean, median, variance, standard deviation, and SEM of the tumor volume for each regimen
@@ -109,7 +112,7 @@ summary_table = pd.DataFrame({
 summary_table 
 
 
-# In[108]:
+# In[10]:
 
 
 # A more advanced method to generate a summary statistics table of mean, median, variance, standard deviation,
@@ -121,7 +124,7 @@ summary_table
 
 # ## Bar and Pie Charts
 
-# In[109]:
+# In[11]:
 
 
 # Generate a bar plot showing the total number of rows (Mouse ID/Timepoints) for each drug regimen using Pandas.
@@ -134,7 +137,7 @@ plt.ylabel("Number of Mice Tested")
 plt.show() 
 
 
-# In[110]:
+# In[12]:
 
 
 # Generate a bar plot showing the total number of rows (Mouse ID/Timepoints) for each drug regimen using pyplot.
@@ -147,7 +150,7 @@ plt.ylabel("Number of Mice Tested")
 plt.show() 
 
 
-# In[111]:
+# In[13]:
 
 
 # Generate a pie chart, using Pandas, showing the distribution of unique female versus male mice used in the study
@@ -158,7 +161,7 @@ counts = clean_study_data_complete.Sex.value_counts()
 counts.plot(kind = 'pie', autopct = '%1.1f%%')
 
 
-# In[112]:
+# In[14]:
 
 
 # Generate a pie chart, using pyplot, showing the distribution of unique female versus male mice used in the study
@@ -173,7 +176,7 @@ plt.show()
 
 # ## Quartiles, Outliers and Boxplots
 
-# In[113]:
+# In[15]:
 
 
 # Calculate the final tumor volume of each mouse across four of the treatment regimens:
@@ -188,7 +191,7 @@ merged_data = max_tumor.merge(clean_study_data_complete, on = ["Mouse ID", "Time
 merged_data
 
 
-# In[114]:
+# In[16]:
 
 
 # Put treatments into a list for for loop (and later for plot labels)
@@ -218,7 +221,7 @@ for drug in treatment_list:
     print(f"{drug}'s potential outliers {outliers}")
 
 
-# In[115]:
+# In[17]:
 
 
 # Generate a box plot that shows the distribution of the tumor volume for each treatment group.
@@ -231,7 +234,7 @@ plt.show()
 
 # ## Line and Scatter Plots
 
-# In[116]:
+# In[18]:
 
 
 # Generate a line plot of tumor volume vs. time point for a single mouse treated with Capomulin
@@ -245,7 +248,7 @@ plt.ylabel("Tumor Volume (mm3)")
 plt.title("Capomulin treatment of mouse l509")
 
 
-# In[117]:
+# In[19]:
 
 
 # Generate a scatter plot of mouse weight vs. the average observed tumor volume for the entire Capomulin regimen
@@ -260,7 +263,7 @@ plt.show()
 
 # ## Correlation and Regression
 
-# In[118]:
+# In[20]:
 
 
 # Calculate the correlation coefficient and a linear regression model
